@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>JavaScript Quiz</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <header>
+            <div id="view-scores">View high scores</div>
+            <div id="timer" class="hidden"></div>
+        </header>
+        <main>
+            <section id="welcome">
+                <h1>JavaScript Quiz</h1>
+                <p>This is a test of your JavaScript knowledge. See how many questions you can answer correctly before the time runs out. Try to score as high as you can before the time runs out.</p>
+                <p><button id="begin-quiz">Begin Quiz</button></p>
+            </section>
+            <section id="q-and-a" class="hidden">
+                <h2 id="question">Question goes here</h2>
+                <ol id="answer-list">
+                    <li id="answer1">first answer</li>
+                    <li id="answer2">second answer</li>
+                    <li id="answer3">third answer</li>
+                    <li id="answer4">fourth answer</li>
+                </ol>
+            </section>
+            <section id="quiz-over" class="hidden">
+                <h2>Quiz Over</h2>
+                <p>Your final score is <span id="final-score"></span>.</p>
+                <form name="hs-form">
+                    <label for="initials">Enter your initials:</label>
+                    <input type="text" id="initials" name="initials" maxlength="5" />
+                    <button id="initials-submit">Submit</button>
+                </form>
+                <p id="input-error-msg"></p>
+            </section>
+            <section id="answer-to-last-question" class="hidden"></section>
+            <section id="highscores" class="hidden">
+                <h2>High Scores</h2>
+                <ol id="highscore-list"></ol>
+                <p>
+                    <button id="go-back">Go Back to Welcome Screen</button>
+                    <button id="clear-scores">Clear Scores</button> 
+                </p>
+            </section>
+            
+        </main>
+        <script src="assets/script.js" async defer></script>
+    </body>
+</html>
