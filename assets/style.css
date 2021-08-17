@@ -1,7 +1,112 @@
+:root {
+    --app-width: clamp(350px, 50%, 800px);
+}
+
+body {
+    background-color: black;
+    color: yellow;
+}
+
 .hidden {
     display: none;
 }
 
-li {
-    display: button;
+header, 
+main {
+    width: var(--app-width);
+    margin-left: auto;
+    margin-right: auto;
 }
+
+/* header layout */
+header {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:  nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+/* font styles */
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 130%;
+}
+
+code {
+    font-family: 'Cascadia Code', 'Consolas', Courier, monospace
+}
+
+/* Question display styles */
+#answer-list {
+    list-style: upper-alpha;
+}
+#answer-list li {
+    margin-top: 0.5em;
+}
+
+#input-error-msg {
+    color: red;
+    font-weight: bolder;
+}
+
+#answer-to-last-question {
+    margin-top: 0.5em;
+    border-top: 2px dashed grey;
+    padding-top: 0.5em;
+}
+
+/* Button, button-likes, and input box styles */
+button,
+#view-scores,
+#answer-list>li {
+    background-color: black;
+    border: 1px solid yellow;
+    color: white;
+    padding: 0.2em;
+    width: auto;
+}
+
+button {
+    margin: 0.1em;
+}
+
+button:hover,
+#view-scores:hover,
+#answer-list>li:hover {
+    cursor: pointer;
+}
+button:hover,
+button:focus,
+#view-scores:hover,
+#answer-list>li:hover,
+#view-scores:focus,
+#answer-list>li:focus {
+    background-color: yellow;
+    color:black;
+}
+
+input {
+	background-color: #444;
+	border: 1px solid yellow;
+	color: white;
+}
+
+/* boost fonts on certain buttons */
+button {
+    padding: 0.25em;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#view-scores {
+    font-weight: bolder;
+}
+
+/* stop list item markers from changing to same color as background. */
+#answer-list>li:hover::marker,
+#answer-list>li:focus::marker {
+    color: white;
+}
+

@@ -210,7 +210,7 @@ function displayTimer() {
     timerDiv.textContent = 'Time left: ' + timer;
 }
 
-//Ends the game and shows quiz results
+//Ends the game and shows quiz results + prompt for initials
 function endGameAndShowQuizResult() {
     //stop the timer
     clearInterval(timerInterval);
@@ -234,6 +234,7 @@ function endGameAndShowQuizResult() {
     // display Quiz result screen
     finalScoreSpan.textContent = score;
     quizOverSection.className = '';
+    inputErrorMsgP.textContent = '';
     
 }
 
