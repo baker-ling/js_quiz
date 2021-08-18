@@ -265,6 +265,7 @@ function registerScore(event) {
     showHighScores();
 }
 
+// Brings up the high scores screen
 function showHighScores() {
     // hide link to jump to high scores
     viewScoresDiv.className = 'hidden';
@@ -286,6 +287,9 @@ function showHighScores() {
     highScoresSection.className = '';
 }
 
+// Callback for the "View high scores" link at the top of the page
+// Contains logic to confirm with the user before transitioning to the 
+// high scores screen.
 function jumpToHighScores() {
     if (welcomeSection.className !== 'hidden') {
         welcomeSection.className = 'hidden';
@@ -361,6 +365,7 @@ function randomChoice(arrayLike) {
     return Math.floor(Math.random() * arrayLike.length);
 }
 
+// Add click event listeners 
 beginButton.addEventListener('click', playQuiz);
 goBackButton.addEventListener('click', showWelcome);
 clearScoresButton.addEventListener('click', clearScores);
@@ -368,4 +373,5 @@ answerList.addEventListener('click', checkQuestionAnswer);
 scoreSubmitButton.addEventListener('click', registerScore);
 viewScoresDiv.addEventListener('click', jumpToHighScores);
 
+// Bring up welcome screen
 showWelcome();
