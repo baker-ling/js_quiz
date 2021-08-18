@@ -123,7 +123,7 @@ const clearScoresButton = document.getElementById('clear-scores');
 const INCORRECT_TIME_PENALTY = 10;
 const TIME_PER_QUESTION = 10;
 const POINTS_PER_CORRECT_ANSWER = 5;
-const POINTS_PER_SECOND_REMAINING = 1;
+const POINTS_PER_SECOND_REMAINING = 0.5;
 const ANSWER_FEEDBACK_DISPLAY_LENGTH = 2000; // length of time to display message for whether previous answer was right or wrong
 
 //global variables for game state (number correct, timer, etc.)
@@ -192,6 +192,46 @@ function displayQuestion() {
         // make sure qAndASection is not hidden
         qAndASection.className = '';
     }
+}
+
+// check question answer
+function checkQuestionAnswer(event) {
+    // get answer that was clicked on
+    let answerLi;
+    if (event.target.tagName.toLowerCase() === 'li') {
+        answerLi = event.target
+    } else if (event.target.matches('#answer-list>li *')) { 
+        answerLi = event.target.parentElement;
+        while (answerLi.tagName.toLowerCase() !== 'li') answerLi = answerLi.parentElement;
+    } else {
+       // Click was not on one of the answers, so do nothing
+       return; 
+    }
+
+    event.stopPropagation();
+
+    //check whether answer was correct
+    if (answerLi.dataset.answerIndex == '-1') {
+        // user answered correctly
+        correctAnswers++;
+        answerToLastQuestionSection.textContent = 'Correct!';
+    } else {
+        // user answered incorrectly
+        answerToLastQuestionSection.textContent = `Wrong answer! You lose ${INCORRECT_TIME_PENALTY} seconds!`;
+        timer -= INCORRECT_TIME_PENALTY;
+        displayTimer();
+    }
+    // clear timeout for the result from the previous question, if it exists
+    if (answerToLastQuestionTimeout) {
+        clearTimeout(answerToLastQuestionTimeout);
+    }
+    // show result from this question for 2 seconds
+    answerToLastQuestionSection.className = '';
+    answerToLastQuestionTimeout = setTimeout(() => {
+        answerToLastQuestionSection.className = 'hidden';
+    }, ANSWER_FEEDBACK_DISPLAY_LENGTH);
+    // display the next question
+    displayQuestion();
 }
 
 //Action for every tick (second) of the timer 
@@ -316,41 +356,6 @@ function clearScores() {
     localStorage.removeItem('scores');
 }
 
-// check question answer
-function checkQuestionAnswer(event) {
-    let answerLi;
-    if (event.target.tagName.toLowerCase() === 'li') {
-        answerLi = event.target
-    } else if (event.target.matches('#answer-list>li *')) { 
-        answerLi = event.target.parentElement;
-        while (answerLi.tagName.toLowerCase() !== 'li') answerLi = answerLi.parentElement;
-    } else {
-       // Click was not on one of the answers, so do nothing
-       return; 
-    }
-
-    event.stopPropagation();
-    if (answerLi.dataset.answerIndex == '-1') {
-        // user answered correctly
-        correctAnswers++;
-        answerToLastQuestionSection.textContent = 'Correct!';
-    } else {
-        // user answered incorrectly
-        answerToLastQuestionSection.textContent = `Wrong answer! You lose ${INCORRECT_TIME_PENALTY} seconds!`;
-        timer -= INCORRECT_TIME_PENALTY;
-    }
-    // clear timeout for the result from the previous question, if it exists
-    if (answerToLastQuestionTimeout) {
-        clearTimeout(answerToLastQuestionTimeout);
-    }
-    // show result from this question for 2 seconds
-    answerToLastQuestionSection.className = '';
-    answerToLastQuestionTimeout = setTimeout(() => {
-        answerToLastQuestionSection.className = 'hidden';
-    }, ANSWER_FEEDBACK_DISPLAY_LENGTH);
-    // display the next question
-    displayQuestion();
-}
 
 // Shuffles an array in place suing the Fisher-Yates shuffle algorithm
 function shuffleArray(arr) {
@@ -358,11 +363,6 @@ function shuffleArray(arr) {
         let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-}
-
-// Picks an element from an array-like object at random
-function randomChoice(arrayLike) {
-    return Math.floor(Math.random() * arrayLike.length);
 }
 
 // Add click event listeners 
